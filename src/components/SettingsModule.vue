@@ -92,7 +92,7 @@ const handleEnterPressed = async () => {
   try {
     showSpinner.value = true;
 
-    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=37d63f8db6f547a8a92100230231402&q=${userCityValue}`;
+    const apiUrl = `${store.$state.req}${userCityValue}`;
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
