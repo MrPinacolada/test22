@@ -1,11 +1,20 @@
 {
-  "name": "test22weather",
-  "version": "0.1.0",
+  "name": "weathertest22",
+  "version": "0.1.6",
   "private": false,
+  "main": "dist/weathertest22.common.js",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "build-package": "vue-cli-service build --target lib --name weathertest22 ./src/main.ts --no-demo"
   },
+  "files": [
+    "dist/*",
+    "src/*",
+    "*.json",
+    "*.js",
+    "*.ts"
+  ],
   "dependencies": {
     "animate.css": "^4.1.1",
     "core-js": "^3.8.3",
@@ -17,7 +26,8 @@
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
-    "vue3-draggable": "^2.0.9"
+    "vue3-draggable": "^2.0.9",
+    "weathertest22": "^0.1.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

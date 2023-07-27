@@ -4,7 +4,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   configureWebpack: {
     output: {
-      library: "test22weather",
+      library: "weathertest22",
       libraryTarget: "umd",
     },
   },

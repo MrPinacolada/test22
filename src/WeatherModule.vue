@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <!-- <main>
     <div v-if="loader || trowError" style="width: 20em; padding: 1em">
       <ProgressSpinner
         style="display: grid; align-items: center; justify-items: center"
@@ -92,14 +92,15 @@
         v-if="showSettings"
       />
     </div>
-  </main>
+  </main> -->
+  <!-- <WeatherModule /> -->
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import moment from "moment";
 import { Store } from "@/pinia/index";
-
+// import WeatherModule from "weathertest22";
 const store = Store();
 
 const title = ref<string>("London, UK");
@@ -193,29 +194,7 @@ onMounted(() => {
 });
 </script>
 
-<style>
-html {
-  margin: 0;
-  padding: 0;
-  margin: auto; /* toRemove */
-}
-h1,
-h2,
-h3,
-p,
-span,
-a {
-  margin: 0;
-}
-main {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-}
+<style scoped>
 .currentT_box {
   display: grid;
   grid-template-columns: 1fr 1fr;

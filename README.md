@@ -1,1 +1,1 @@
-$ npm i test22weather
+$ docker pull mrpinacolada/tests:latest
