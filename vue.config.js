@@ -1,10 +1,11 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
+  publicPath: process.env.NODE_ENV === "production" ? "/test22/" : "/",
   transpileDependencies: true,
   configureWebpack: {
     output: {
-      library: 'test22weather',
-      libraryTarget: 'umd',
+      library: "test22weather",
+      libraryTarget: "umd",
     },
   },
-})
+});
