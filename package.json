@@ -2,20 +2,12 @@
   "name": "test22weatherbox",
   "version": "0.4.2",
   "private": false,
-  "main": "dist/test22weatherbox.umd.min.js",
-  "style": "dist/test22weatherbox.css",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-package": "vue-cli-service build --target lib --name test22weatherbox ./src/npmmain.ts --no-demo"
   },
-  "files": [
-    "dist/*",
-    "src/*",
-    "*.json",
-    "*.js",
-    "*.ts"
-  ],
+  
   "dependencies": {
     "animate.css": "^4.1.1",
     "core-js": "^3.8.3",
