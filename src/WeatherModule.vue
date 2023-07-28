@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loader || trowError" style="width: 20em; padding: 1em">
+  <div v-if="loader || trowError" style="width: 20em; padding: 5em">
     <ProgressSpinner
       style="display: grid; align-items: center; justify-items: center"
     />
@@ -12,7 +12,7 @@
       <template #header>
         <div class="title-header">
           <span
-            ><b>{{ title }}</b>
+            ><b>{{ title ?? "N/A" }}</b>
           </span>
           <i
             class="pi pi-cog"
@@ -33,13 +33,13 @@
             alt="weatherIMG"
           />
           <span
-            ><b>{{ currentCondition?.currentTempC }} °C</b></span
+            ><b>{{ currentCondition?.currentTempC ?? "N/A" }} °C</b></span
           >
         </section>
       </template>
       <template #subtitle>
         <p>
-          <b>Today is {{ moment_today }}</b>
+          <b>Today is {{ moment_today ?? "N/A" }}</b>
         </p>
         <p>
           Feels like
@@ -59,7 +59,9 @@
             ></i>
             <span>
               {{
-                `${currentCondition?.currentWind} m/s ${currentCondition?.currentWind_dir}`
+                `${currentCondition?.currentWind ?? "N/A"} m/s ${
+                  currentCondition?.currentWind_dir ?? "N/A"
+                }`
               }}
             </span>
           </div>
@@ -68,7 +70,7 @@
               style="font-size: 1em; color: rgb(173, 173, 173)"
               class="pi pi-exclamation-circle"
             ></i>
-            <span>{{ `${currentCondition?.current_hPa} hPa` }}</span>
+            <span>{{ `${currentCondition?.current_hPa ?? "N/A"} hPa` }}</span>
           </div>
         </section>
         <section class="rest_currentInfo">
@@ -100,7 +102,7 @@ import { Store } from "@/pinia/index";
 
 const store = Store();
 
-const title = ref<string>("London, UK");
+const title = ref<string>("");
 const showSettings = ref<boolean>(false);
 const trowError = ref<boolean>(false);
 const moment_today = ref<string | null>(null);
@@ -144,24 +146,18 @@ const fetchWeatherData = async (
     if (data.error) {
       trowError.value = true;
     } else {
-      title.value = `${data.location.name}, ${data.location.country}`;
       if (!place && !store.$state.placesArr.includes(data.location.name)) {
         store.$state.placesArr.push(data.location.name);
       }
-      const currentWindKph = data.current.wind_kph;
+      title.value = `${data.location.name}, ${data.location.country}`;
       currentCondition.value = {
         currentIMG: data.current.condition.icon,
         currentTempC: data.current.temp_c,
         feelsLikeC: data.current.feelslike_c,
         conditionText: data.current.condition.text,
-        currentWind:
-          currentWindKph !== undefined
-            ? Math.round((currentWindKph * 1000) / 3600)
-            : "N/A",
+        currentWind: Math.round((data.current.wind_kph * 1000) / 3600),
         currentWind_dir: data.current.wind_dir,
-        current_hPa: data.current.pressure_in
-          ? Math.round(data.current.pressure_in * 33.8639)
-          : "N/A",
+        current_hPa: Math.round(data.current.pressure_in * 33.8639),
         current_humidity: data.current.humidity,
         current_vis: data.current.vis_km,
       };
@@ -177,14 +173,14 @@ const fetchWeatherData = async (
   }
 };
 
-const successCallback = async (position: any) => {
+const successCallback = (position: any) => {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
-  await fetchWeatherData(latitude, longitude, null);
+  fetchWeatherData(latitude, longitude, null);
 };
 
-const errorCallback = async () => {
-  await fetchWeatherData(51.5072, 0.1276, null);
+const errorCallback = () => {
+  fetchWeatherData(51.5072, 0.1276, null);
 };
 
 const toggleOpenSetts = () => {

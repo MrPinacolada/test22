@@ -1,6 +1,6 @@
 {
   "name": "test22weatherbox",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve",
