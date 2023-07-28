@@ -149,14 +149,14 @@ const handleDrop = (index: number, event: DragEvent) => {
     const sourcePlace = store.$state.placesArr[idx];
     store.$state.placesArr.splice(idx, 1);
     store.$state.placesArr.splice(index, 0, sourcePlace);
+    localStorage.setItem("places", store.$state.placesArr)
     emit("chanchePlace", store.$state.placesArr[0]);
   }
 };
 onMounted(() => {
-  // localStorage.clear();
   let savedPlaces = localStorage.getItem("places");
   let savedPlacesArray = savedPlaces ? savedPlaces.split(",") : [];
-  const newPlacesArr = [...new Set([...store.placesArr, ...savedPlacesArray])];
+  const newPlacesArr = [...new Set([ ...savedPlacesArray])];
   store.$state.placesArr.splice(
     0,
     store.$state.placesArr.length,

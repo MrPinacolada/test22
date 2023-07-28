@@ -1,96 +1,96 @@
 <template>
-    <div v-if="loader || trowError" style="width: 20em; padding: 1em">
-      <ProgressSpinner
-        style="display: grid; align-items: center; justify-items: center"
-      />
-    </div>
-    <div class="major-box" v-else v-if="!showSettings">
-      <Card
-        style="width: 20em; padding: 1em"
-        class="animate__animated animate__fadeIn"
-      >
-        <template #header>
-          <div class="title-header">
-            <span
-              ><b>{{ title }}</b>
-            </span>
-            <i
-              class="pi pi-cog"
-              @click="toggleOpenSetts()"
-              style="
-                font-size: 1.5em;
-                position: absolute;
-                right: 0;
-                cursor: pointer;
-              "
-            ></i>
-          </div>
+  <div v-if="loader || trowError" style="width: 20em; padding: 1em">
+    <ProgressSpinner
+      style="display: grid; align-items: center; justify-items: center"
+    />
+  </div>
+  <div class="major-box" v-else v-if="!showSettings">
+    <Card
+      style="width: 20em; padding: 1em"
+      class="animate__animated animate__fadeIn"
+    >
+      <template #header>
+        <div class="title-header">
+          <span
+            ><b>{{ title }}</b>
+          </span>
+          <i
+            class="pi pi-cog"
+            @click="toggleOpenSetts()"
+            style="
+              font-size: 1.5em;
+              position: absolute;
+              right: 0;
+              cursor: pointer;
+            "
+          ></i>
+        </div>
 
-          <section class="currentT_box">
-            <img
-              style="height: 8em; width: 8em"
-              :src="currentCondition?.currentIMG"
-              alt="weatherIMG"
-            />
-            <span
-              ><b>{{ currentCondition?.currentTempC }} °C</b></span
-            >
-          </section>
-        </template>
-        <template #subtitle>
-          <p>
-            <b>Today is {{ moment_today }}</b>
-          </p>
-          <p>
-            Feels like
-            {{
-              `${currentCondition?.feelsLikeC ?? "N/A"} °C. ${
-                currentCondition?.conditionText ?? "N/A"
-              }`
-            }}
-          </p>
-        </template>
-        <template #content>
-          <section class="currentWind_box">
-            <div class="dir">
-              <i
-                style="font-size: 1em; color: rgb(173, 173, 173)"
-                class="pi pi-compass"
-              ></i>
-              <span>
-                {{
-                  `${currentCondition?.currentWind} m/s ${currentCondition?.currentWind_dir}`
-                }}
-              </span>
-            </div>
-            <div class="ph">
-              <i
-                style="font-size: 1em; color: rgb(173, 173, 173)"
-                class="pi pi-exclamation-circle"
-              ></i>
-              <span>{{ `${currentCondition?.current_hPa} hPa` }}</span>
-            </div>
-          </section>
-          <section class="rest_currentInfo">
-            <span
-              ><b>Humidity: </b
-              >{{ `${currentCondition?.current_humidity ?? "N/A"}%` }}</span
-            >
-            <span
-              ><b>Visibility: </b
-              >{{ `${currentCondition?.current_vis ?? "N/A"} km` }}</span
-            >
-          </section>
-        </template>
-      </Card>
-    </div>
-    <div class="setts-box">
-      <SettingsModule
-        @chanchePlace="fetchWeatherData(0, 0, $event)"
-        @toggleClose="toggleOpenSetts()"
-        v-if="showSettings"
-      />
-    </div>
+        <section class="currentT_box">
+          <img
+            style="height: 8em; width: 8em"
+            :src="currentCondition?.currentIMG"
+            alt="weatherIMG"
+          />
+          <span
+            ><b>{{ currentCondition?.currentTempC }} °C</b></span
+          >
+        </section>
+      </template>
+      <template #subtitle>
+        <p>
+          <b>Today is {{ moment_today }}</b>
+        </p>
+        <p>
+          Feels like
+          {{
+            `${currentCondition?.feelsLikeC ?? "N/A"} °C. ${
+              currentCondition?.conditionText ?? "N/A"
+            }`
+          }}
+        </p>
+      </template>
+      <template #content>
+        <section class="currentWind_box">
+          <div class="dir">
+            <i
+              style="font-size: 1em; color: rgb(173, 173, 173)"
+              class="pi pi-compass"
+            ></i>
+            <span>
+              {{
+                `${currentCondition?.currentWind} m/s ${currentCondition?.currentWind_dir}`
+              }}
+            </span>
+          </div>
+          <div class="ph">
+            <i
+              style="font-size: 1em; color: rgb(173, 173, 173)"
+              class="pi pi-exclamation-circle"
+            ></i>
+            <span>{{ `${currentCondition?.current_hPa} hPa` }}</span>
+          </div>
+        </section>
+        <section class="rest_currentInfo">
+          <span
+            ><b>Humidity: </b
+            >{{ `${currentCondition?.current_humidity ?? "N/A"}%` }}</span
+          >
+          <span
+            ><b>Visibility: </b
+            >{{ `${currentCondition?.current_vis ?? "N/A"} km` }}</span
+          >
+        </section>
+      </template>
+    </Card>
+  </div>
+  <div class="setts-box">
+    <SettingsModule
+      @chanchePlace="fetchWeatherData(0, 0, $event)"
+      @toggleClose="toggleOpenSetts()"
+      v-if="showSettings"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -125,7 +125,13 @@ const fetchWeatherData = async (
   place: string | null
 ) => {
   try {
-    let params = place ? place : latitude + "," + longitude;
+    let savedPlaces = localStorage.getItem("places");
+    let savedPlacesArray = savedPlaces ? savedPlaces.split(",") : [];
+    let params = place
+      ? place
+      : savedPlacesArray[0]
+      ? savedPlacesArray[0]
+      : latitude + "," + longitude;
     const response = await fetch(`${store.$state.req}${params}`, {
       method: "POST",
       headers: {
