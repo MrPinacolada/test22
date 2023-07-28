@@ -1,5 +1,4 @@
 <template>
-  <main>
     <Card
       style="width: 20em; padding: 1em"
       class="animate__animated animate__fadeIn"
@@ -55,12 +54,12 @@
         </span>
       </template>
     </Card>
-  </main>
 </template>
 
 <script setup lang="ts">
 import { Store } from "@/pinia/index";
 import { onMounted, ref } from "vue";
+
 
 const store = Store();
 const emit = defineEmits();
@@ -167,28 +166,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-html {
-  margin: 0;
-  padding: 0;
-  margin: auto; /* toRemove */
-}
-h1,
-h2,
-h3,
-p,
-span,
-a {
-  margin: 0;
-}
-main {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-}
+
 .setts-header {
   position: relative;
 }
@@ -198,7 +176,7 @@ main {
 }
 .pick-box {
   display: flex;
-  height: fit-content;
+  height: 2.4em;
   width: 100%;
   gap: 0.3em;
   background-color: antiquewhite;

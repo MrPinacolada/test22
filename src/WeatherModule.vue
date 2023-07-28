@@ -1,5 +1,4 @@
 <template>
-  <!-- <main>
     <div v-if="loader || trowError" style="width: 20em; padding: 1em">
       <ProgressSpinner
         style="display: grid; align-items: center; justify-items: center"
@@ -92,15 +91,13 @@
         v-if="showSettings"
       />
     </div>
-  </main> -->
-  <!-- <WeatherModule /> -->
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import moment from "moment";
 import { Store } from "@/pinia/index";
-// import WeatherModule from "weathertest22";
+
 const store = Store();
 
 const title = ref<string>("London, UK");

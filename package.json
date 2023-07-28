@@ -1,12 +1,13 @@
 {
-  "name": "weathertest22",
-  "version": "0.1.6",
+  "name": "test22weatherbox",
+  "version": "0.4.2",
   "private": false,
-  "main": "dist/weathertest22.common.js",
+  "main": "dist/test22weatherbox.umd.min.js",
+  "style": "dist/test22weatherbox.css",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-package": "vue-cli-service build --target lib --name weathertest22 ./src/main.ts --no-demo"
+    "build-package": "vue-cli-service build --target lib --name test22weatherbox ./src/npmmain.ts --no-demo"
   },
   "files": [
     "dist/*",
@@ -26,8 +27,7 @@
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
-    "vue3-draggable": "^2.0.9",
-    "weathertest22": "^0.1.5"
+    "vue3-draggable": "^2.0.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
